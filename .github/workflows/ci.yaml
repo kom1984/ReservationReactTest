@@ -1,10 +1,7 @@
-name: CI
+name: CI/CD
 
 on:
   push:
-    branches:
-      - master
-  pull_request:
     branches:
       - master
 
@@ -24,12 +21,12 @@ jobs:
 
       - name: Build application
         run: npm run build
-      
+
       - name: Deploy to Netlify
-      uses: nwtgck/actions-netlify@v1
-      with:
-        publish-dir: ./dist
-        production-deploy: true
-      env:
-        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        uses: nwtgck/actions-netlify@v1
+        with:
+          publish-dir: ./build
+          production-deploy: true
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
